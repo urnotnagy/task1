@@ -1,0 +1,321 @@
+/* SCSS Variables were:
+$primary-color: #A2D729; // Lime Green
+$secondary-color: #FFFFFF; // White
+$accent-color-light-gray: #F0F0F0; // Light Gray
+$accent-color-teal: #46B29D; // Teal/Aqua
+$text-color: #333333; // Dark Gray for text
+$font-family: 'Montserrat', sans-serif;
+*/
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	font-family: 'Montserrat', sans-serif;
+	background-color: #F0F0F0; /* Light gray background for the page */
+	padding: 1em;
+	color: #333333; /* Default text color for readability on light gray */
+}
+
+.wrapper {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	gap: 2em;
+}
+
+.card {
+	width: 380px;
+	height: 300px;
+	perspective: 1500px;
+}
+
+.card .content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transform-style: preserve-3d;
+	transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+	border-radius: 8px;
+}
+
+.card .more {
+	display: none;
+}
+
+.card .more:checked ~ .content {
+	transform: rotateY(180deg);
+}
+
+.card .front,
+.card .back {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.card .front .inner,
+.card .back .inner {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	padding: 1.5em;
+	transform: translateZ(60px) scale(0.95);
+	text-align: center;
+}
+
+.card .front {
+	background-color: #FFFFFF; /* White background, overlay provides color */
+	background-size: cover;
+	background-position: center center;
+}
+
+.card .front:after { /* Overlay for better text readability on images */
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+	border-radius: 8px;
+	backface-visibility: hidden;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); /* Dark overlay for contrast */
+}
+
+.card .front .logo {
+	font-size: 1.8em;
+	font-weight: 700;
+	color: #FFFFFF; /* White text on gradient */
+	text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+	margin-bottom: 0.5em;
+  z-index: 1; /* Ensure logo is above overlay */
+  position: relative;
+}
+
+.card .front h2 {
+	margin-bottom: 0.2em;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: #FFFFFF; /* White text on gradient */
+	font-weight: 600;
+	font-size: 1.4em;
+	text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  z-index: 1;
+  position: relative;
+}
+
+.card .front .tagline {
+	color: rgba(255, 255, 255, 0.9); /* White text (slightly transparent) on gradient */
+	font-size: 0.9em;
+	margin-bottom: 1em;
+  z-index: 1;
+  position: relative;
+}
+
+.card .back {
+	transform: rotateY(180deg);
+	background-color: #FFFFFF; /* White background */
+	border: 2px solid #A2D729; /* Lime green border */
+}
+
+.card .back .inner {
+	justify-content: space-evenly;
+}
+
+.card .back .logo-back {
+	font-size: 1.5em;
+	font-weight: 700;
+	color: #A2D729; /* Lime green text on white */
+	margin-bottom: 0.5em;
+}
+
+.card .back h3 {
+	color: #A2D729; /* Lime green text on white */
+	font-size: 1.2em;
+	margin-bottom: 0.7em;
+	font-weight: 600;
+}
+
+.card .back .service-points {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 1em 0;
+	font-size: 0.85em;
+	color: #333333; /* Dark gray text on white */
+	width: 100%;
+}
+
+.card .back .service-points li {
+	margin-bottom: 0.5em;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	text-align: left;
+}
+
+.card .back .service-points li i {
+	color: #46B29D; /* Teal icon */
+	margin-right: 0.7em;
+	font-size: 1.2em;
+}
+
+.card .back .benefit-statement {
+	font-size: 0.8em;
+	color: #333333; /* Dark gray text on white */
+	margin-bottom: 1em;
+	font-style: italic;
+}
+
+.card .back .cta-button {
+	display: inline-block;
+	padding: 0.6em 1.2em;
+	background-color: #A2D729; /* Lime green background */
+	color: #FFFFFF; /* White text */
+	text-decoration: none;
+	border-radius: 4px;
+	font-weight: 600;
+	font-size: 0.9em;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	margin-bottom: 0.5em;
+}
+
+.card .back .cta-button:hover {
+	background-color: #82aa21; /* darken(#A2D729, 10%) */
+	transform: translateY(-2px);
+}
+
+.button { /* General button styling for front 'Details' and back 'Return' */
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 600;
+	cursor: pointer;
+	display: inline-block;
+	padding: 0.6em 1.2em;
+	height: auto;
+	line-height: normal;
+	min-width: auto;
+	background-color: transparent;
+	border: solid 2px #FFFFFF; /* White border for front button (on gradient) */
+	color: #FFFFFF; /* White text for front button (on gradient) */
+	border-radius: 4px;
+	text-align: center;
+	transition: 0.3s ease-in-out;
+	text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+	font-size: 0.85em;
+  z-index: 1; /* Ensure button is above overlay on front */
+  position: relative;
+}
+
+.button:hover {
+	background-color: #FFFFFF; /* White background */
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	text-shadow: none;
+	color: #A2D729; /* Lime green text on white */
+}
+
+.button.return { /* Specific for the return arrow button */
+	border-color: #A2D729; /* Lime green border (on white background) */
+	color: #A2D729; /* Lime green icon/text (on white background) */
+	text-shadow: none;
+	padding: 0.5em;
+	line-height: 1;
+  z-index: 0; /* Reset z-index as it's on the back card */
+  position: static;
+}
+
+.button.return i {
+	font-size: 1.2em;
+}
+
+.button.return:hover {
+	background-color: #A2D729; /* Lime green background */
+	color: #FFFFFF; /* White icon/text */
+	box-shadow: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+	width: 6px;
+}
+::-webkit-scrollbar-track {
+	background: #F0F0F0;
+}
+::-webkit-scrollbar-thumb {
+	background: #358678; /* darken(#46B29D, 10%) */
+	border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #46B29D;
+}
+/* === Card-Specific Front Styles for Color Scheme Restoration === */
+
+/* --- Card 1: Lime Green Front --- */
+.wrapper .card:nth-of-type(1) .front {
+	background-color: #A2D729; /* Lime Green */
+}
+.wrapper .card:nth-of-type(1) .front:after {
+	background: transparent; /* Remove dark overlay */
+}
+/* Text elements (.logo, h2, .tagline, .button) default to white, which is correct. */
+/* .button hover (general): white bg, lime green text - correct for this card. */
+
+
+/* --- Card 2: Teal/Aqua Front --- */
+.wrapper .card:nth-of-type(2) .front {
+	background-color: #46B29D; /* Teal/Aqua */
+}
+.wrapper .card:nth-of-type(2) .front:after {
+	background: transparent; /* Remove dark overlay */
+}
+/* Text elements (.logo, h2, .tagline, .button) default to white, which is correct. */
+.wrapper .card:nth-of-type(2) .front .button:hover {
+    background-color: #FFFFFF; /* White background */
+    color: #46B29D; /* Teal/Aqua text */
+    text-shadow: none; /* Ensure no shadow from general button style */
+}
+
+
+/* --- Card 3: White Front --- */
+.wrapper .card:nth-of-type(3) .front {
+	background-color: #FFFFFF; /* White */
+}
+.wrapper .card:nth-of-type(3) .front:after {
+	background: transparent; /* Remove dark overlay */
+}
+
+.wrapper .card:nth-of-type(3) .front .logo,
+.wrapper .card:nth-of-type(3) .front h2,
+.wrapper .card:nth-of-type(3) .front .tagline {
+	color: #333333; /* Dark Gray text on White background */
+	text-shadow: none; /* Remove shadow intended for light text on dark bg */
+}
+
+.wrapper .card:nth-of-type(3) .front .button {
+	color: #333333; /* Dark Gray text */
+	border-color: #A2D729; /* Lime Green border for accent */
+	text-shadow: none; /* Remove shadow intended for light text on dark bg */
+}
+
+.wrapper .card:nth-of-type(3) .front .button:hover {
+	background-color: #A2D729; /* Lime Green background */
+	color: #FFFFFF; /* White text */
+	border-color: #A2D729; /* Keep border consistent or remove if bg is enough */
+}
+/* === End Card-Specific Front Styles === */

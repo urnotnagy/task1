@@ -1,0 +1,267 @@
+// SCSS Variables
+$primary-color: #A2D729; // Lime Green
+$secondary-color: #FFFFFF; // White
+$accent-color-light-gray: #F0F0F0; // Light Gray
+$accent-color-teal: #46B29D; // Teal/Aqua
+$text-color: #333333; // Dark Gray for text
+$font-family: 'Montserrat', sans-serif;
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	font-family: $font-family;
+	background-color: $accent-color-light-gray; // Light gray background for the page
+	padding: 1em;
+	color: $text-color; // Default text color for readability on light gray
+}
+
+.wrapper {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	gap: 2em;
+}
+
+.card {
+	width: 380px;
+	height: 300px;
+	perspective: 1500px;
+
+	.content {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		transform-style: preserve-3d;
+		transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+		box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+		border-radius: 8px;
+	}
+
+	.more {
+		display: none;
+	}
+
+	.more:checked ~ .content {
+		transform: rotateY(180deg);
+	}
+
+	.front,
+	.back {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		backface-visibility: hidden;
+		transform-style: preserve-3d;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+
+	.front .inner, // Keep separate for potential distinct inner styling if needed later
+	.back .inner {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		padding: 1.5em;
+		transform: translateZ(60px) scale(0.95);
+		text-align: center;
+	}
+
+	.front {
+		background-color: $secondary-color; // White background, overlay provides color
+		background-size: cover;
+		background-position: center center;
+
+		&:after { // Overlay for better text readability on images
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: block;
+			border-radius: 8px;
+			backface-visibility: hidden;
+			background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); // Dark overlay for contrast
+		}
+
+		.logo {
+			font-size: 1.8em;
+			font-weight: 700;
+			color: $secondary-color; // White text on gradient
+			text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+			margin-bottom: 0.5em;
+            z-index: 1; // Ensure logo is above overlay
+            position: relative;
+		}
+
+		h2 {
+			margin-bottom: 0.2em;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: $secondary-color; // White text on gradient
+			font-weight: 600;
+			font-size: 1.4em;
+			text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            z-index: 1;
+            position: relative;
+		}
+
+		.tagline {
+			color: rgba($secondary-color, 0.9); // White text (slightly transparent) on gradient
+			font-size: 0.9em;
+			margin-bottom: 1em;
+            z-index: 1;
+            position: relative;
+		}
+	}
+
+	.back {
+		transform: rotateY(180deg);
+		background-color: $secondary-color; // White background
+		border: 2px solid $primary-color; // Lime green border
+
+		.inner {
+			justify-content: space-evenly;
+		}
+
+		.logo-back {
+			font-size: 1.5em;
+			font-weight: 700;
+			color: $primary-color; // Lime green text on white
+			margin-bottom: 0.5em;
+		}
+
+		h3 {
+			color: $primary-color; // Lime green text on white
+			font-size: 1.2em;
+			margin-bottom: 0.7em;
+			font-weight: 600;
+		}
+
+		.service-points {
+			list-style: none;
+			padding: 0;
+			margin: 0 0 1em 0;
+			font-size: 0.85em;
+			color: $text-color; // Dark gray text on white
+			width: 100%;
+
+			li {
+				margin-bottom: 0.5em;
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
+				text-align: left;
+
+				i {
+					color: $accent-color-teal; // Teal icon
+					margin-right: 0.7em;
+					font-size: 1.2em;
+				}
+			}
+		}
+
+		.benefit-statement {
+			font-size: 0.8em;
+			color: $text-color; // Dark gray text on white
+			margin-bottom: 1em;
+			font-style: italic;
+		}
+
+		.cta-button {
+			display: inline-block;
+			padding: 0.6em 1.2em;
+			background-color: $primary-color; // Lime green background
+			color: $secondary-color; // White text
+			text-decoration: none;
+			border-radius: 4px;
+			font-weight: 600;
+			font-size: 0.9em;
+			transition: background-color 0.3s ease, transform 0.2s ease;
+			margin-bottom: 0.5em;
+
+			&:hover {
+				background-color: darken($primary-color, 10%);
+				transform: translateY(-2px);
+			}
+		}
+	}
+}
+
+.button { // General button styling for front 'Details' and back 'Return'
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 600;
+	cursor: pointer;
+	display: inline-block;
+	padding: 0.6em 1.2em;
+	height: auto;
+	line-height: normal;
+	min-width: auto;
+	background-color: transparent;
+	border: solid 2px $secondary-color; // White border for front button (on gradient)
+	color: $secondary-color; // White text for front button (on gradient)
+	border-radius: 4px;
+	text-align: center;
+	transition: 0.3s ease-in-out;
+	text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+	font-size: 0.85em;
+    z-index: 1; // Ensure button is above overlay on front
+    position: relative;
+
+
+	&:hover {
+		background-color: $secondary-color; // White background
+		box-shadow: 0 0 10px rgba(0,0,0,0.3);
+		text-shadow: none;
+		color: $primary-color; // Lime green text on white
+	}
+
+	&.return { // Specific for the return arrow button
+		border-color: $primary-color; // Lime green border (on white background)
+		color: $primary-color; // Lime green icon/text (on white background)
+		text-shadow: none;
+		padding: 0.5em;
+		line-height: 1;
+        z-index: 0; // Reset z-index as it's on the back card
+        position: static;
+
+
+		i {
+			font-size: 1.2em;
+		}
+
+		&:hover {
+			background-color: $primary-color; // Lime green background
+			color: $secondary-color; // White icon/text
+			box-shadow: none;
+		}
+	}
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+	width: 6px;
+}
+::-webkit-scrollbar-track {
+	background: $accent-color-light-gray;
+}
+::-webkit-scrollbar-thumb {
+	background: darken($accent-color-teal, 10%);
+	border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: $accent-color-teal;
+}
